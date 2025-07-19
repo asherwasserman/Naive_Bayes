@@ -4,6 +4,8 @@ class Classifier:
         self.data_frame = data_frame
         self.target_variable = target_variable
         self.sum_target_variable = self.data_frame.groupby(target_variable).size().to_dict()
+        self.total_target_variables = self.data_frame[self.target_variable].count()
+        self.statistic_dictionary = self.probability_dictionary()
 
     def filling_with_zeros(self):
         dictionary_with_zeros = {}
@@ -43,8 +45,20 @@ class Classifier:
                     statistic_dictionary[target][column][value] = statistic_dictionary[target][column][value] / denominator
         return statistic_dictionary
 
-
-
-
+    def classifier(self, values_dictionary):
+        probability_dictionary = {}
+        target_variables = self.sum_target_variable.keys()
+        statistic_dictionary = self.statistic_dictionary
+        for target in target_variables:
+            probability_dictionary[target] = 1
+            for key, value in values_dictionary.items():
+                try:
+                    probability_dictionary[target] *= statistic_dictionary[target][key][value]
+                except:
+                    continue
+        for target in probability_dictionary:
+            probability_dictionary[target] *= self.sum_target_variable[target] / self.total_target_variables
+        max_probability = max(probability_dictionary, key = probability_dictionary.get)
+        return max_probability
 
 

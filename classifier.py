@@ -4,7 +4,16 @@ class Classifier:
         self.data_frame = data_frame
         self.target_variable = target_variable
 
-    def classifier(self):
+    def filling_the_dictionary_with_values(self):
+        statistic_dictionary = self.filling_with_zeros()
+        for column in self.data_frame.columns:
+            values_in_column = self.data_frame.groupby([self.target_variable, column]).size()
+            for ( target_variable, unique_values), count in values_in_column.items():
+                statistic_dictionary[target_variable][column][unique_values] = count
+        return statistic_dictionary
+
+    def probability_dictionary(self):
+        pass
 
 
     def filling_with_zeros(self):

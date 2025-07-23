@@ -1,5 +1,5 @@
 import pandas as pd
-from Cleaner import CsvCleanerForClassifiers
+from Cleaner import CsvCleaner
 from Trainer import Trainer
 class Test:
     def __init__(self,df ,target_variable ):
@@ -26,6 +26,6 @@ class Test:
         percent = (true_classify / num_classify) * 100
         percent = round(percent, 2)
         return percent
-a = CsvCleanerForClassifiers.basic_data_cleaner("data for NB buys computer - Sheet1.csv")
+a = CsvCleaner.basic_data_cleaner("data for NB buys computer - Sheet1.csv")
 b = Test(a, "Buy_Computer").reliability_check()
 print(b)

@@ -2,13 +2,13 @@ import uvicorn
 from fastapi import FastAPI, Request
 from pydantic import BaseModel
 import pandas as pd
-from Cleaner import CsvCleanerForClassifiers
-from Trainer import Trainer
-from Classifier import Classifier
+from app.Cleaner import CsvCleaner
+from app.Trainer import Trainer
+from app.Classifier import Classifier
 
 app = FastAPI()
-path = r'C:\Users\user1\PycharmProjects\PythonProject3\NaiveBayesClassifier\data\data for NB buys computer - Sheet1.csv'
-df = CsvCleanerForClassifiers.basic_data_cleaner(path)
+path = 'data/data for NB buys computer - Sheet1.csv'
+df = CsvCleaner.basic_data_cleaner(path)
 classifier = Trainer(df, "Buy_Computer")
 probability_dictionary = classifier.probability_dictionary()
 sum_target_dict = classifier.sum_target_variable

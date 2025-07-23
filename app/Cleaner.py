@@ -1,5 +1,5 @@
 import pandas as pd
-class CsvCleanerForClassifiers:
+class CsvCleaner:
     @staticmethod
     def basic_data_cleaner(csv_file):
         df = pd.read_csv(csv_file)
